@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="script/jquery-1.10.2.js"></script>
+<script src="script/bootstrap.min.js"></script>
+<script src="script/rivets.min.js"></script>
+
+<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+<link href="./css/bootstrap.css" rel="stylesheet">
+<link href="./css/mysocket.css" rel="stylesheet">
+</head>
+<body>
+<div id="main-div">
+	<div rv-show="model.showLoginDiv" class="container">
+		<form class="form-signin">
+			<h2 class="form-signin-heading">Game Sign in</h2>
+			<input rv-value="model.playerName" type="text"	class="input-block-level" placeholder="Player Name" id="playername"/>
+			<input rv-value="model.password" type="password" class="input-block-level" id="password" placeholder="Password" required=""/> 
+			<a rv-on-click="model.connectToServer" id="signin" class="btn btn-large btn-primary">Sign in</a>
+			<label rv-text="model.connectionFailMsg"/>
+			<input rv-value="model.serviceLocation" type="text" class="service-location input-block-level" placeholder="Service Location"/>
+		</form>
+	</div>
+	<div rv-hide="model.showLoginDiv" id="main-canvas">
+		<div id="status-div">
+		</div>
+		<div id="player1-div">
+		</div>
+		<div id="player2-div">
+		</div>
+		<div id="playground-div">
+		</div>
+		<div id="player4-div">
+		</div>
+		<div id="player3-div">
+		</div>
+	</div>
+</div>
+<script src="script/mysocket.js"></script>
+</body>
+</html>

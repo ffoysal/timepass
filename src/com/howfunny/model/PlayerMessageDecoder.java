@@ -24,14 +24,15 @@ public class PlayerMessageDecoder implements Decoder.Text<PlayerMessage>{
 	@Override
 	public void init(EndpointConfig arg0) {
 		// TODO Auto-generated method stub
+		System.out.println("Decoder init");
 		
 	}
 
 	@Override
 	public PlayerMessage decode(String textMessage) throws DecodeException {
 		PlayerMessage playerMessage = new PlayerMessage();
-		JsonObject obj = Json.createReader(new StringReader(textMessage))
-				.readObject();
+		JsonObject obj = Json.createReader(new StringReader(textMessage)).readObject();
+		
 		playerMessage.setGameName(obj.getString("gameName"));
 		playerMessage.setMessageType(obj.getString("messageType"));
 		playerMessage.setConnectionStatus(obj.getString("connectionStatus"));
@@ -43,7 +44,7 @@ public class PlayerMessageDecoder implements Decoder.Text<PlayerMessage>{
 			players.add(v.toString());
 		}
 		playerMessage.setPlayers(players);
-		
+		playerMessage.setGameInstruction(obj.getString("gameInstruction"));
 		return playerMessage;
 	}
 

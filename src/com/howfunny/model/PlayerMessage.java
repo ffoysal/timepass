@@ -9,14 +9,20 @@ public class PlayerMessage {
 	private String messageType;
 	private String connectionStatus;
 	private List<String> players; 
-			
+	private String gameInstruction;		
 	public PlayerMessage(){
 		gameName="";
 		playerName="";
 		messageType="";
 		connectionStatus="";
 		players = new ArrayList<String>();
-		
+		gameInstruction ="";
+	}
+	public String getGameInstruction() {
+		return gameInstruction;
+	}
+	public void setGameInstruction(String gameInstruction) {
+		this.gameInstruction = gameInstruction;
 	}
 	public List<String> getPlayers() {
 		return players;

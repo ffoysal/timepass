@@ -1,9 +1,15 @@
 package com.howfunny.controller;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
+import javax.websocket.DecodeException;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -17,7 +23,7 @@ import com.howfunny.model.PlayerMessageDecoder;
 import com.howfunny.model.PlayerMessageEncoder;
 import com.howfunny.model.User;
 
-@ServerEndpoint (value="/fungame/{userName}/{pass}",  encoders = PlayerMessageEncoder.class, decoders = PlayerMessageDecoder.class)
+@ServerEndpoint (value="/fungame/{userName}/{pass}",  encoders = {PlayerMessageEncoder.class}, decoders = {PlayerMessageDecoder.class})
 public class ControllerEndpoint {
 	
 	private static User user = new User();
@@ -73,9 +79,20 @@ public class ControllerEndpoint {
 		}
 	}
 	
+//	@OnMessage
+//	public void onMessage(final Session session, final PlayerMessage playerMessage) {
+//		System.out.println(playerMessage.getGameInstruction());
+//	}
 	@OnMessage
-	public void onMessage(final Session session, final PlayerMessage playerMessage) {
-
+	public void onMessage(final Session session, final String msg) {
+		try {
+			PlayerMessage pm = decode(msg);
+			System.out.println(pm.getGameInstruction());
+			
+		} catch (DecodeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@OnClose
 	public void close(Session session){
@@ -92,4 +109,23 @@ public class ControllerEndpoint {
 		
 	}
 	
+	// For now decode method here, as of now the automatic decoder class not working
+	private PlayerMessage decode(String textMessage) throws DecodeException {
+		PlayerMessage playerMessage = new PlayerMessage();
+		JsonObject obj = Json.createReader(new StringReader(textMessage)).readObject();
+		
+		playerMessage.setGameName(obj.getString("gameName"));
+		playerMessage.setMessageType(obj.getString("messageType"));
+		playerMessage.setConnectionStatus(obj.getString("connectionStatus"));
+		playerMessage.setPlayerName(obj.getString("playerName"));
+		
+		JsonArray jsonArray = obj.getJsonArray("players");
+		List<String> players = new ArrayList<String>();
+		for(JsonValue v: jsonArray){
+			players.add(v.toString());
+		}
+		playerMessage.setPlayers(players);
+		playerMessage.setGameInstruction(obj.getString("gameInstruction"));
+		return playerMessage;
+	}
 }

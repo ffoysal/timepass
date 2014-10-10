@@ -18,7 +18,7 @@ public class PlayerMessageEncoder implements Encoder.Text<PlayerMessage>{
 	@Override
 	public void init(EndpointConfig arg0) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Encoder init");
 	}
 
 	@Override
@@ -34,7 +34,8 @@ public class PlayerMessageEncoder implements Encoder.Text<PlayerMessage>{
 		.add("playerName", playerMessage.getPlayerName())
 		.add("messageType", playerMessage.getMessageType())
 		.add("connectionStatus", playerMessage.getConnectionStatus())
-		.add("players",players).build().toString();
+		.add("players",players)
+		.add("gameInstruction", playerMessage.getGameInstruction()).build().toString();
 	}
 
 }

@@ -1,11 +1,29 @@
 package com.howfunny.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayerMessage {
-	private String gameName="";
-	private String playerName="";
-	private String messageType="";
-	private String connectionStatus="";
-	
+	private String gameName;
+	private String playerName;
+	private String messageType;
+	private String connectionStatus;
+	private List<String> players; 
+			
+	public PlayerMessage(){
+		gameName="";
+		playerName="";
+		messageType="";
+		connectionStatus="";
+		players = new ArrayList<String>();
+		
+	}
+	public List<String> getPlayers() {
+		return players;
+	}
+	public void setPlayers(List<String> players) {
+		this.players = players;
+	}
 	public String getConnectionStatus() {
 		return connectionStatus;
 	}

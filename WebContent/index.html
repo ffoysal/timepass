@@ -24,17 +24,27 @@
 		</form>
 	</div>
 	<div rv-hide="model.showLoginDiv" id="main-canvas">
+		<div id="field-div">
+			<div id="player1-div">
+			</div>
+			<div id="player2-div">
+			</div>
+			<div id="playground-div">
+			</div>
+			<div id="player4-div">
+			</div>
+			<div id="player3-div">
+			</div>
+		</div>
 		<div id="status-div">
-		</div>
-		<div id="player1-div">
-		</div>
-		<div id="player2-div">
-		</div>
-		<div id="playground-div">
-		</div>
-		<div id="player4-div">
-		</div>
-		<div id="player3-div">
+			<div id="logged-user-div">
+				<ul>
+					<li rv-each-username="model.loggedInUser">
+						<input type="checkbox">{username}</input>
+					</li>
+				</ul>
+			</div>
+			<a class="btn btn-default btn-primary">Play Game</a>
 		</div>
 	</div>
 </div>

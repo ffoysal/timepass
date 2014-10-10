@@ -14,6 +14,7 @@ var GameModel = function(){
 	this.serviceLocation = "localhost:8080";
 	this.showLoginDiv = true;
 	this.connectionFailMsg='';
+	this.loggedInUser = [];
 };
 
 var wsocket;
@@ -37,9 +38,13 @@ function onMessageReceived(evt) {
 	if(msg.messageType == "AUTHENTICATION"){
 		if(msg.connectionStatus == "Connected"){
 			model.showLoginDiv = false;
+			model.loggedInUser = msg.players;
 		}else{
 			model.connectionFailMsg = msg.connectionStatus;
 		}
+	}
+	if(msg.messageType == "NEWUSER"){
+		model.loggedInUser = msg.players;
 	}
 	console.log(evt.data);
 }

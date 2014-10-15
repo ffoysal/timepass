@@ -9,7 +9,14 @@ public class PlayerMessage {
 	private String messageType;
 	private String connectionStatus;
 	private List<String> players; 
-	private String gameInstruction;		
+	private String gameInstruction;
+	private List<String> hand;
+	public List<String> getHand() {
+		return hand;
+	}
+	public void setHand(List<String> hand) {
+		this.hand = hand;
+	}
 	public PlayerMessage(){
 		gameName="";
 		playerName="";
@@ -17,6 +24,7 @@ public class PlayerMessage {
 		connectionStatus="";
 		players = new ArrayList<String>();
 		gameInstruction ="";
+		hand = new ArrayList<String>();
 	}
 	public String getGameInstruction() {
 		return gameInstruction;

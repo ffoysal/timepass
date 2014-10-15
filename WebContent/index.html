@@ -26,7 +26,7 @@
 	<div rv-hide="model.showLoginDiv" id="main-canvas">
 		<div id="field-div">
 			<div id="player1-div">
-				
+				<img rv-each-card="model.hand" rv-src="card.name" height="150" width="100" rv-class="card.card_class"/>
 			</div>
 			<div id="player2-div">
 			</div>
@@ -49,6 +49,7 @@
 		</div>
 	</div>
 </div>
+<script src="script/underscore-min.js"></script>
 <script src="script/mysocket.js"></script>
 </body>
 </html>

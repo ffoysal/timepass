@@ -31,7 +31,8 @@
 	height: 200px;
 	margin-top: 5px;
 	border: 1px solid blue;
-	float: left
+	float: left;
+	position: relative;
 }
 #player2-div, #player4-div{
 	width: 25%;
@@ -70,4 +71,30 @@
 #logged-user-div ul{
 	padding-left: 0px;
 	margin-left:0px;
+}
+.displayed-card{
+	position: absolute;
+	top: 30px;
+}
+.displayed-card:hover{
+	top:10px;
+	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  	border-radius: 4px;
+  	border: 1px solid rgba(81, 203, 238, 1);
+  	cursor: pointer;
+}
+.displayed-card-1{
+	
+}
+.displayed-card-2{
+	left: 40px;
+	
+}
+.displayed-card-3{
+	left: 70px;
+	
+}
+.displayed-card-4{
+	left: 100px;
+	
 }

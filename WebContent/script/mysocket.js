@@ -17,6 +17,7 @@ var GameModel = function(){
 	this.connectionFailMsg='';
 	this.loggedInUser = [];
 	this.wsocket={};
+	this.hand = [];
 };
 
 //var wsocket;
@@ -60,6 +61,19 @@ function onMessageReceived(evt) {
 	if(msg.messageType == "NEWUSER"){
 		model.loggedInUser = msg.players;
 	}
-	
+	if(msg.messageType == "DEAL_RESULT"){
+		model.hand = makeCardImgPath(msg.hand);
+	}
 	console.log(evt.data);
+}
+
+function makeCardImgPath(cards){
+	var counter = 0;
+	return _.map(cards, function(card){ 
+		counter = counter + 1;
+		return { 
+			name: "./images/cards/"+card+".svg", 
+			card_class: "displayed-card displayed-card-"+counter
+		}; 
+		});
 }

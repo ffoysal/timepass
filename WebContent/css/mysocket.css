@@ -11,7 +11,9 @@
 	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
-
+body{
+	background: url(../images/bkg_content.png) repeat;
+}
 .service-location{
 	margin-top: 10px;
 }
@@ -23,36 +25,28 @@
 #status-div{
 	width: 15%;
 	height: 100%;
-	margine-lft: 5px;
+	margin-left: 20px;
 	float: left;
 }
-#player1-div,#player3-div{
-	width: 100%;
+.player1-row, .player3-row{
 	height: 200px;
-	margin-top: 5px;
-	border: 1px solid blue;
-	float: left;
-	position: relative;
+	background-color: blue;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
-#player2-div, #player4-div{
-	width: 25%;
-	height: 300px;
-	margin-top: 5px;
-	border: 1px solid blue;
-	float:left
+.player2-row{
+	height: 400px;
+	background-color: blue;
 }
-#playground-div{
-	width:48.5%;
-	height: 300px;
-	margin:5px;
-	border: 1px solid blue;
-	float: left;
+.playground{
+	height: 400px;
+	background-color: green;
 }
 
 #field-div{
 	height: 100%;
-	width: 83%;
-	float: left;	
+	width: 80%;
+	float: left;
+	margin-left: 15px;	
 }
 #logged-user-div{
 	width: 100%;
@@ -97,4 +91,17 @@
 .displayed-card-4{
 	left: 100px;
 	
+}
+ul.nav{
+	float:right !important;
+}
+.container-fluid{
+	background-color: #2D8EE4;
+}
+.panel-primary{
+	max-width: 300px;	
+	margin: 200px auto 20px;		
+}
+.panel-body .form-control{
+	margin-bottom: 20px;
 }

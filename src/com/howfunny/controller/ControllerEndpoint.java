@@ -3,6 +3,7 @@ package com.howfunny.controller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.json.Json;
@@ -88,6 +89,11 @@ public class ControllerEndpoint {
 		try {
 			PlayerMessage pm = decode(msg);
 			System.out.println(pm.getGameInstruction());
+			if(pm.getGameInstruction().equalsIgnoreCase("DEAL")){
+				pm.setHand(Arrays.asList("10C","10H","4C","AC"));
+				pm.setMessageType("DEAL_RESULT");
+				sendMessage(session,pm);
+			}
 			
 		} catch (DecodeException e) {
 			// TODO Auto-generated catch block

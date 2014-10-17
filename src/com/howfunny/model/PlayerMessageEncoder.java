@@ -28,6 +28,12 @@ public class PlayerMessageEncoder implements Encoder.Text<PlayerMessage>{
 		for(String p: playerMessage.getPlayers()){
 			players.add(p);
 		}
+
+		JsonArrayBuilder hand = Json.createArrayBuilder();
+		for(String h: playerMessage.getHand()){
+			hand.add(h);
+		}
+		
 		
 		return Json.createObjectBuilder()
 		.add("gameName",playerMessage.getGameName())
@@ -35,6 +41,7 @@ public class PlayerMessageEncoder implements Encoder.Text<PlayerMessage>{
 		.add("messageType", playerMessage.getMessageType())
 		.add("connectionStatus", playerMessage.getConnectionStatus())
 		.add("players",players)
+		.add("hand",hand)
 		.add("gameInstruction", playerMessage.getGameInstruction()).build().toString();
 	}
 

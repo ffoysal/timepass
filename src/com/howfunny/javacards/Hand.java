@@ -132,6 +132,12 @@ public class Hand {
 	public void sortByRank(){
 
 	}
+	
+	public void displayHand(){
+		for(int i=0; i<hand.size(); i++){
+			System.out.println(hand.get(i).toString());
+		}
+	}
 
 
 

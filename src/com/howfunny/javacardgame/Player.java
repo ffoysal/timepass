@@ -9,6 +9,7 @@ public class Player {
 	private String PlayerNumber;
 	
 	private Hand hand;
+
 	private boolean isVirtualDealer;
 	private String partnerName;
 	private int partnerId;
@@ -37,6 +38,9 @@ public class Player {
 		this.PlayerId = PlayerId;
 	}
 
+	public void addCard(Card c){
+		this.hand.addCard(c);
+	}
 	
 	public void play(){
 		//TODO
@@ -96,6 +100,14 @@ public class Player {
 
 	public void setPlayerName(String playerName) {
 		PlayerName = playerName;
+	}
+
+	public Hand getHand() {
+		return hand;
+	}
+
+	public void setHand(Hand hand) {
+		this.hand = hand;
 	}
 	
 

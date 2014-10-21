@@ -14,13 +14,15 @@ public class Deck {
 	
 	private int size;
 	
+	private boolean shuffled=false;
+	
 	//Unshuffled deck of 52 cards.
 	public Deck(){
 		size = 52;
 		deck=new ArrayList<Card>(size);
 		//How many cards already created.
 		for( int suit = 0; suit <=3; suit++ ){
-			for( int rank = 1; rank <=13; rank++ ){
+			for( int rank = 2; rank <=14; rank++ ){
 				deck.add(new Card(suit,rank));
 			}
 		}
@@ -30,6 +32,7 @@ public class Deck {
 	//Shuffle the cards
 	public void shuffle(){
 		Collections.shuffle(deck);
+		shuffled = true;
 	}
 	//Number of Cards in deck
 	public int cardsInDeck(){
@@ -40,6 +43,8 @@ public class Deck {
 	 * Send exception if there is no more card in the deck.
 	 */
 	public Card dealCard(){
+		if(shuffled ==false)
+			this.shuffle();
 		if(cardDealt == size)
 			throw new IllegalStateException("No cards in the deck.");
 		cardDealt++;

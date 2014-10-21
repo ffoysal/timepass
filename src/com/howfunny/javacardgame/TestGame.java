@@ -22,6 +22,7 @@ public class TestGame {
 		
 		Hand h=new Hand();
 		
+		h1.clear();
 		
 		for(int i=0; i<13; i++){
 			h1.addCard(d.dealCard());
@@ -35,7 +36,8 @@ public class TestGame {
 			System.out.println(h1.getCard(i).toString());
 		}
 		
-		Collections.sort(h1.getHand(), Card.Comparators.CARDSUIT);
+		
+		Collections.sort(h1.getHand(), Card.Comparators.CARDSUITRANK);
 
 		System.out.println("Cards for Player 1:  \n");
 		for(int i=0; i<13; i++){

@@ -14,7 +14,7 @@ public class AuctionBridgeGame implements Game {
 	
 	private Deck deck=null;
 	private int playerCount=0;
-	private ArrayList<Player> players;
+	private ArrayList<Player> players =new ArrayList<Player>(4);;
 	
 	private Player leader;
 
@@ -23,7 +23,6 @@ public class AuctionBridgeGame implements Game {
 	
 	public AuctionBridgeGame(Player leader){
 		this.leader=leader;
-		players.add(leader);
 		playerCount++;
 		//Set the originator as leader
 		leader.setLeader(true);
@@ -34,7 +33,27 @@ public class AuctionBridgeGame implements Game {
 		deck= new Deck();
 	}
 	
+	public void sortCardOfAllPlayers(){
+		this.getAllPlayers();
+		for(int i=0; i<players.size();i++){
+			players.get(i).getHand().sortCards();
+		}
+	}
+
+	public ArrayList<Player> getAllPlayers(){
+		if(players ==null)
+			players = new ArrayList<Player>(4);
+		
+		players.add(this.getFirstPair().getPlayer1());
+		players.add(this.getFirstPair().getPlayer2());
+		players.add(this.getSecondPair().getPlayer1());
+		players.add(this.getSecondPair().getPlayer2());
+		
+		return players;
+	}
+
 	public void dealCards(){
+		System.out.println("dealCards() called...");
 		if(this.isReadyForGame()){
 			if(deck==null)
 				deck=new Deck();
@@ -91,6 +110,7 @@ public class AuctionBridgeGame implements Game {
 	
 	public void setUpPairs(){
 		//pairs=new Pair[2];
+		System.out.println("Two pairs are created...");
 		pair1=new Pair("A",leader);
 		pair2=new Pair("B");//Create the pair without any player
 		pairs.add(0, pair1);

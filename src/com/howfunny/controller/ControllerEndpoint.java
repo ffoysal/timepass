@@ -19,6 +19,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.howfunny.javacardgame.*;
 import com.howfunny.model.PlayerMessage;
 import com.howfunny.model.PlayerMessageDecoder;
 import com.howfunny.model.PlayerMessageEncoder;
@@ -41,6 +42,8 @@ public class ControllerEndpoint {
 			message.setConnectionStatus("Connected");			
 			System.out.println("Connection Successful");
 			message.setPlayers(logedInUserNames(session));
+			//Create a player with his name
+			Player player =new Player(userName);
 			sendMessage(session,message);
 			
 			message.setMessageType("NEWUSER");
@@ -89,6 +92,10 @@ public class ControllerEndpoint {
 		try {
 			PlayerMessage pm = decode(msg);
 			System.out.println(pm.getGameInstruction());
+			if(pm.getGameInstruction().equalsIgnoreCase("CREATE")){
+				AuctionBridgeGame bridgeGame = new AuctionBridgeGame();
+				sendMessage(session,pm);
+			}
 			if(pm.getGameInstruction().equalsIgnoreCase("DEAL")){
 				pm.setHand(Arrays.asList("10C","10H","4C","AC"));
 				pm.setMessageType("DEAL_RESULT");

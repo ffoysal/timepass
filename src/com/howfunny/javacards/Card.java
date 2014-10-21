@@ -10,7 +10,7 @@ public class Card implements Comparable<Card>{
 	public final static int CLUBS = 3;
 	public final static int JOKER = 4;
 
-	public final static int ACE = 1;      // Codes for the non-numeric cards.
+	public final static int ACE = 14;      // Codes for the non-numeric cards.
 	public final static int JACK = 11;    //   Cards 2 through 10 have their 
 	public final static int QUEEN = 12;   //   numerical values for their codes.
 	public final static int KING = 13;
@@ -21,11 +21,13 @@ public class Card implements Comparable<Card>{
 	//Cards rank
 	private int rank;
 
+	//For ease of calculation Card are started from 2 and the Ace is virtually considered as
+	//Card no 14.
 	public Card(int suit, int rank)
 	{
 		if(suit != SPADES && suit != HEARTS &&suit != DIAMONDS &&suit != CLUBS)
 			throw new IllegalArgumentException("Invalid card suit");
-		if (suit != JOKER && (rank < 1 || rank > 13))
+		if (suit != JOKER && (rank < 2 || rank > 14))
 			throw new IllegalArgumentException("Invalid card rank");
 		this.setSuit(suit);
 		this.setRank(rank);
@@ -33,11 +35,11 @@ public class Card implements Comparable<Card>{
 
 	public String getSuitAsString(){
 		switch ( suit ) {
-		case SPADES:   return "Spades";
-		case HEARTS:   return "Hearts";
-		case DIAMONDS: return "Diamonds";
-		case CLUBS:    return "Clubs";
-		default:       return "Joker";
+		case SPADES:   return "S";
+		case HEARTS:   return "H";
+		case DIAMONDS: return "D";
+		case CLUBS:    return "C";
+		default:       return "J";
 		}
 	}
 
@@ -46,7 +48,6 @@ public class Card implements Comparable<Card>{
 			return Integer.toString(rank);
 		else{
 			switch (rank) {
-			case 1:   return "Ace";
 			case 2:   return "2";
 			case 3:   return "3";
 			case 4:   return "4";
@@ -56,9 +57,11 @@ public class Card implements Comparable<Card>{
 			case 8:   return "8";
 			case 9:   return "9";
 			case 10:  return "10";
-			case 11:  return "Jack";
-			case 12:  return "Queen";
-			default:  return "King";
+			case 11:  return "J";
+			case 12:  return "Q";
+			case 13:  return "K";
+			case 14:  return "A";
+			default:  return null;
 			}
 		}
 	}
@@ -71,7 +74,7 @@ public class Card implements Comparable<Card>{
 			else
 				return "Joker #" + rank;
 		}
-		else return getRankAsString() + " of " + getSuitAsString();
+		else return getRankAsString() +getSuitAsString();
 	}
 
 	public int getSuit() {
@@ -95,7 +98,7 @@ public class Card implements Comparable<Card>{
 		return Comparators.CARDRANK.compare(this, c);
 	}
 	
-	  public static class Comparators {
+	public static class Comparators {
 
 	        public static Comparator<Card> CARDRANK = new Comparator<Card>() {
 	            @Override
@@ -109,12 +112,16 @@ public class Card implements Comparable<Card>{
 	                return c1.suit-c2.suit;
 	            }
 	        };
-//	        public static Comparator<Card> CARDSUITANDRANK = new Comparator<Card>() {
-//	            @Override
-//	            public int compare(Card c1, Card c2) {
-//	                return c1.suit-c2.suit;
-//	            }
-//	        };
+	        public static Comparator<Card> CARDSUITRANK = new Comparator<Card>() {
+	            @Override
+	            public int compare(Card c1, Card c2) {
+	                if(c1.suit==c2.suit){
+	                	return c1.rank-c2.rank;
+	                }
+	                else
+	                  	return c1.suit-c2.suit;
+	            }
+	        };
 
 	  }
 

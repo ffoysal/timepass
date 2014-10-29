@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="main-div">
-	<div rv-show="model.showLoginDiv" class="panel panel-primary">
+	<div rv-show="model.showLoginDiv" class="panel panel-primary" rv-class-loginfail="model.isloginFailed">
 		<div class="panel-heading">
 			<h2 class="panel-title">Sign In</h2>
 		</div>
@@ -21,8 +21,8 @@
 			<input rv-value="model.playerName" type="text"	class="form-control" placeholder="Player Name" id="playername"/>
 			<input rv-value="model.password" type="password" class="form-control" id="password" placeholder="Password" required=""/> 
 			<a rv-on-click="model.connectToServer" id="signin" class="btn btn-large btn-primary">Sign in</a>
-			<label rv-text="model.connectionFailMsg"/>
-			<input rv-value="model.serviceLocation" type="text" class="service-location input-block-level" placeholder="Service Location"/>
+			<input rv-value="model.serviceLocation" type="text" class="service-location form-control" placeholder="Service Location"/>
+			<span style="color:red;" rv-text="model.connectionFailMsg"></span>
 		</div>
 	</div>
 	<div rv-hide="model.showLoginDiv" id="main-canvas">
@@ -64,10 +64,42 @@
 				</ul>
 			</div>
 			<a rv-on-click="model.sendToServer" class="btn btn-default btn-primary">Play Game</a>
+			<a rv-on-click="model.sendBidToServer" class="btn btn-default btn-primary">BID</a>
 		</div>
 	</div>
 </div>
+
+<!-- Modal Bid Metrix-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="bid-metrix-template" type="text/x-handlebars-template">
+	{{#each bidRows}}
+	<div class="row bid-row" >
+		{{#each this}}
+		<div class="col-md-2"><img height="65" width="55" src="{{image_url}}"></div>
+		{{/each}}
+	</div>
+	{{/each}}
+</script>
+
 <script src="script/underscore-min.js"></script>
+<script src="script/handlebars-1.1.2.js"></script>
 <script src="script/mysocket.js"></script>
 </body>
 </html>

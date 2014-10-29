@@ -105,3 +105,11 @@ ul.nav{
 .panel-body .form-control{
 	margin-bottom: 20px;
 }
+
+.loginfail{
+	border-color: red;
+	border-width:2px;
+}
+.bid-row{
+	margin-bottom: 5px;
+}

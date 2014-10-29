@@ -18,6 +18,9 @@ var GameModel = function(){
 	this.loggedInUser = [];
 	this.wsocket={};
 	this.hand = [];
+	this.isloginFailed = false;
+	this.bidMetrix={};
+	this.bidImageMetrix =[];
 };
 
 //var wsocket;
@@ -31,12 +34,20 @@ GameModel.prototype = {
 		sendToServer: function(){
 			myPlayerMessage.playerName = this.playerName;
 			myPlayerMessage.gameInstruction = "DEAL";
-			console.log(myPlayerMessage);
-			console.log(JSON.stringify(myPlayerMessage));
+			//console.log(myPlayerMessage);
+			//console.log(JSON.stringify(myPlayerMessage));
 			
 			this.wsocket.send(JSON.stringify(myPlayerMessage));
 			//this.wsocket.send("TESTING");
+		},
+		sendBidToServer: function(){
+			myPlayerMessage.playerName = this.playerName;
+			myPlayerMessage.gameInstruction = "BID";
+			//console.log(myPlayerMessage);
+			//console.log(JSON.stringify(myPlayerMessage));		
+			this.wsocket.send(JSON.stringify(myPlayerMessage));			
 		}
+		
 
 };
 
@@ -52,10 +63,12 @@ function onMessageReceived(evt) {
 	
 	if(msg.messageType == "AUTHENTICATION"){
 		if(msg.connectionStatus == "Connected"){
+			model.isloginFailed = false;
 			model.showLoginDiv = false;
 			model.loggedInUser = msg.players;
 		}else{
 			model.connectionFailMsg = msg.connectionStatus;
+			model.isloginFailed = true;			
 		}
 	}
 	if(msg.messageType == "NEWUSER"){
@@ -64,7 +77,40 @@ function onMessageReceived(evt) {
 	if(msg.messageType == "DEAL_RESULT"){
 		model.hand = makeCardImgPath(msg.hand);
 	}
+	if(msg.messageType == "BID_RESULT"){
+		model.bidMetrix = msg.bidMetrix.metrix;
+		
+		makeBidImageMetrix(model.bidMetrix);
+		
+		console.log(model.bidImageMetrix);
+		$('#myModal').modal({
+			  keyboard: false
+			});
+		
+		var source   = $("#bid-metrix-template").html();
+		var template = Handlebars.compile(source);
+		var context = {bidRows: model.bidImageMetrix}
+		var html    = template(context);
+		$('.modal-body').append(html);
+	}
+	
+	
 	console.log(evt.data);
+}
+
+function makeBidImageMetrix(bidMetrix){
+	//var metrix = _.map()
+	_.each(bidMetrix, function(row){
+		var r;
+		if(row.length > 1){
+			r = _.map(row, function(a){
+				a['image_url'] = './images/cards/'+ a.weight + a.suit + '.svg';
+				return a;
+			}); 
+			
+			model.bidImageMetrix.push(r);
+		}
+	});
 }
 
 function makeCardImgPath(cards){

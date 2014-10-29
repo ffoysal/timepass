@@ -101,6 +101,10 @@ public class ControllerEndpoint {
 				pm.setMessageType("DEAL_RESULT");
 				sendMessage(session,pm);
 			}
+			if(pm.getGameInstruction().equalsIgnoreCase("BID")){
+				pm.setMessageType("BID_RESULT");
+				sendMessage(session,pm);				
+			}
 			
 		} catch (DecodeException e) {
 			// TODO Auto-generated catch block

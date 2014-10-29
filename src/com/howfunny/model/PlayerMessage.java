@@ -3,6 +3,8 @@ package com.howfunny.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.howfunny.javacardgame.BidMetrix;
+
 public class PlayerMessage {
 	private String gameName;
 	private String playerName;
@@ -11,6 +13,7 @@ public class PlayerMessage {
 	private List<String> players; 
 	private String gameInstruction;
 	private List<String> hand;
+	
 	public List<String> getHand() {
 		return hand;
 	}
@@ -25,6 +28,7 @@ public class PlayerMessage {
 		players = new ArrayList<String>();
 		gameInstruction ="";
 		hand = new ArrayList<String>();
+		
 	}
 	public String getGameInstruction() {
 		return gameInstruction;

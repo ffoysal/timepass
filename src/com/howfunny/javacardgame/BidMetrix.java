@@ -15,11 +15,13 @@ public class BidMetrix {
 		ArrayList<Bid> d = new ArrayList<Bid>();
 		ArrayList<Bid> c = new ArrayList<Bid>();
 		ArrayList<Bid> n = new ArrayList<Bid>();
-		for(int i = 1; i < 7; i++){
+		for(int i = 1; i < 8; i++){
 			s.add(new Bid(i, Suit.SPADES));
 			h.add(new Bid(i, Suit.HEARTS));
 			d.add(new Bid(i, Suit.DIAMONDS));
-			c.add(new Bid(i, Suit.CLUBS));
+			Bid b =new Bid(i, Suit.CLUBS);
+			b.setEnable(false);
+			c.add(b);
 			n.add(new Bid(i, Suit.NT));
 		}
 		

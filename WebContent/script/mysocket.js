@@ -21,6 +21,29 @@ var GameModel = function(){
 	this.isloginFailed = false;
 	this.bidMetrix={};
 	this.bidImageMetrix =[];
+	this.testBid = [
+	                [
+	                 {
+	                	suit:'N',
+	                	weight:1
+	                },
+	                {
+	                	suit: 'N',
+	                	weight: 2
+	                }
+	                 ],
+	                 [
+		                 {
+			                	suit:'S',
+			                	weight:1
+			                },
+			                {
+			                	suit: 'S',
+			                	weight: 2
+			                }
+	                  
+	                  ]
+	                ]
 };
 
 //var wsocket;
@@ -79,10 +102,8 @@ function onMessageReceived(evt) {
 	}
 	if(msg.messageType == "BID_RESULT"){
 		model.bidMetrix = msg.bidMetrix.metrix;
-		
 		makeBidImageMetrix(model.bidMetrix);
-		
-		console.log(model.bidImageMetrix);
+		//console.log(model.bidImageMetrix);
 		$('#myModal').modal({
 			  keyboard: false
 			});
@@ -91,15 +112,47 @@ function onMessageReceived(evt) {
 		var template = Handlebars.compile(source);
 		var context = {bidRows: model.bidImageMetrix}
 		var html    = template(context);
+		$('.modal-body').empty();
 		$('.modal-body').append(html);
+		
+		addImgDisableClass();
+		
+		$('.bid-image-td').on('click', function(evt){
+			if($(evt.target).parent().attr('active-flag') == 'true'){
+				removeImgClickedClass();
+				$(evt.target).addClass('img-clicked');
+			}
+			
+		});
 	}
 	
 	
 	console.log(evt.data);
 }
 
+/* Based on the suit enable flag it disable the img in the bid modal
+ * 
+ */
+function addImgDisableClass(){
+	_.each($('#bid-table').find('.bid-image-td'), function(td){
+	
+		if($(td).attr('active-flag') != 'true')
+			$(td).children().addClass('img-disable');
+	});
+}
+// remove the imgClicked class from the bid modal.
+// Once clicked on a img other img should be deselect
+function removeImgClickedClass(){
+	var imgClicked = $('#bid-table').find('.img-clicked');
+	
+	if(imgClicked.length)
+		imgClicked.removeClass('img-clicked');
+}
+
+
+// add image url to the model
 function makeBidImageMetrix(bidMetrix){
-	//var metrix = _.map()
+	model.bidImageMetrix = [];
 	_.each(bidMetrix, function(row){
 		var r;
 		if(row.length > 1){
@@ -107,7 +160,6 @@ function makeBidImageMetrix(bidMetrix){
 				a['image_url'] = './images/cards/'+ a.weight + a.suit + '.svg';
 				return a;
 			}); 
-			
 			model.bidImageMetrix.push(r);
 		}
 	});

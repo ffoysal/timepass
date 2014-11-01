@@ -105,11 +105,38 @@ ul.nav{
 .panel-body .form-control{
 	margin-bottom: 20px;
 }
-
+.bid-row td{
+	padding: 4px;
+}
 .loginfail{
 	border-color: red;
 	border-width:2px;
 }
-.bid-row{
-	margin-bottom: 5px;
+.bid-row td img:hover:not(.img-clicked):not(.img-disable){
+	border-top: 4px solid #B8D1F3;
+	border-bottom: 4px solid #B8D1F3;
+	cursor: pointer;
+	background-color: #B8D1F3;
+	border-radius: 2px;
+}
+
+.img-clicked{
+	border-top: 4px solid #0099FF;
+	border-bottom: 4px solid #0099FF;
+	cursor: auto;
+	background-color: #0099FF;
+	border-radius: 2px;	
+}
+.img-disable{
+	border-top: 4px solid #C8C8C8;
+	border-bottom: 4px solid #C8C8C8;
+	cursor: auto;
+	background-color: #C8C8C8;
+	border-radius: 2px;		 
+}
+.modal-content{
+	width: 470px;
+}
+.pass-btn{
+	width: 100%;
 }

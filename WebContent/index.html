@@ -70,7 +70,7 @@
 </div>
 
 <!-- Modal Bid Metrix-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,7 +78,13 @@
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
-      	
+      	<!-- 
+      	<table>
+      		<tr rv-each-bidRow="model.testBid">
+      			<td rv-each-mytd="bidRow">{mytd.suit}{mytd.weigh}</td>
+      		</tr>
+      	</table> 
+      	-->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -87,16 +93,19 @@
     </div>
   </div>
 </div>
-
 <script id="bid-metrix-template" type="text/x-handlebars-template">
+<table id="bid-table">
 	{{#each bidRows}}
-	<div class="row bid-row" >
-		{{#each this}}
-		<div class="col-md-2"><img height="65" width="55" src="{{image_url}}"></div>
+	<tr class="bid-row" >
+		{{#each this}}			
+				<td class="bid-image-td" active-flag="{{enable}}" suit="{{suit}}" weight="{{weight}}"><img height="65" width="55" src="{{image_url}}"></td>
 		{{/each}}
-	</div>
+	</tr>
 	{{/each}}
+</table>
+<a class="btn btn-warning pass-btn" data-dismiss="modal">Pass</a>
 </script>
+
 
 <script src="script/underscore-min.js"></script>
 <script src="script/handlebars-1.1.2.js"></script>

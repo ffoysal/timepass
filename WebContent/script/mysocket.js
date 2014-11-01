@@ -122,7 +122,16 @@ function onMessageReceived(evt) {
 				removeImgClickedClass();
 				$(evt.target).addClass('img-clicked');
 			}
-			
+		});
+		
+		$('.btn-bid-submit').on('click',function(evt){
+			var imgClicked = $('#bid-table').find('.img-clicked');			
+			getClickedBid(imgClicked.parent().attr('suit'),imgClicked.parent().attr('weight'));
+		});
+		
+		$('.pass-btn').on('click', function(evt){
+			var bid = {enable: true, suit: null, weight: 0, other:'PASS'};
+			console.log(bid);
 		});
 	}
 	
@@ -163,6 +172,20 @@ function makeBidImageMetrix(bidMetrix){
 			model.bidImageMetrix.push(r);
 		}
 	});
+}
+
+function getClickedBid(st, wt){
+	var bid = {};
+	_.each(model.bidMetrix, function(row){
+		_.each(row,function(td){
+			if(td.suit == st && td.weight == wt){
+				td.enable = false;
+				bid = td;
+			}
+		});
+	});
+	console.log(bid);
+	return bid;
 }
 
 function makeCardImgPath(cards){
